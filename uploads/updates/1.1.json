@@ -1,0 +1,8 @@
+ALTER TABLE `accounts` MODIFY `balance` decimal(11,2);
+ALTER TABLE `categories` MODIFY `budget` decimal(11,2);
+ALTER TABLE `expenses` MODIFY `amount` decimal(11,2);
+ALTER TABLE `users` MODIFY `monthly_spending` decimal(11,2);
+ALTER TABLE `users` MODIFY `annual_spending` decimal(11,2);
+ALTER TABLE `users` MODIFY `monthly_saving` decimal(11,2);
+ALTER TABLE `users` MODIFY `monthly_earning` decimal(11,2);
+ALTER TABLE `categories` DROP INDEX `name`, ADD INDEX `name` (`name`);

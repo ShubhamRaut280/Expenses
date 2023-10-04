@@ -1,0 +1,105 @@
+<form class="simcy-form" action="{{ url('Budget@edit') }}" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
+<div class="modal-body">
+<div class="tab-content">
+    <div id="adjust" class="tab-pane fade in active">
+    <div class="row">
+        <div class="col-md-6 float-center">
+        <div class="adjust-info text-center">
+            <img src="{{ asset('upload/avatar/'.$user->avatar) }}" class="img-circle img-responsive">
+            <h2>What's up {{ user()->fname}}!</h2>
+            <p>Let's Adjust the budget</p>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 float-center">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>I want to spend ( Monthly )</label>
+                        <span class="input-prefix">Ksh</span>
+                        <input type="number" class="form-control prefix" name="monthlyspend" placeholder="i.e 4000" id="monthlyspend" value="{{ $budget->spend }}" required>
+                        <span class="help">Per Month</span>
+                        <input type="hidden" name="csrf-token" value="{{ csrf_token() }}" />
+                    </div>
+                    <div class="col-md-6">
+                        <label>I want to spend ( Annualy )</label>
+                        <span class="input-prefix">Ksh</span>
+                        <input type="number" class="form-control prefix" name="annualspend" placeholder="i.e 12000" id="annualspend" required>
+                        <span class="help">Per Year</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>I want to save ( Monthly )</label>
+                        <span class="input-prefix">Ksh</span>
+                        <input type="number" class="form-control prefix" name="monthlysave" value="{{ $budget->save }}" placeholder="i.e 4000" required>
+                        <span class="help">Per Month</span>
+                    </div>
+                    <div class="col-md-6">
+                        <label>I plan to Earn ( Monthly )</label>
+                        <span class="input-prefix">Ksh</span>
+                        <input type="number" class="form-control prefix" name="monthlyearn" value="{{ $budget->earn }}" placeholder="i.e 12000" required>
+                        <span class="help">Per Year</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="adjust-actions text-center">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span><i class="mdi mdi-close-circle-outline"></i></span> Cancel</button>
+        <button type="submit" class="btn btn-primary" data-toggle="tab" href="#distribute"><span><i class="mdi mdi-source-branch"></i></span> Distribute</button>
+    </div>
+    </div>
+    <div id="distribute" class="tab-pane in active">
+        <div class="row">
+            <div class="col-md-8 float-center">
+            <a data-toggle="tab" href="#adjust"><h2><i class="mdi mdi-arrow-left-thick"></i></h2></a>
+            <div class="adjust-info text-center">
+                <p>Distribute your budget to categories.</p>
+            </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 float-center">
+            <div class="distribute">
+                @if(!empty($categories))
+                @foreach($categories as $category)
+                <div class="distribute-input">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong class="pull-right">$<span class="allocatedbudget"></span>/$<span class="spanbudget"></span> </strong>
+                            <label>{{ $category->name }}</label>
+                            <input type="hidden" class="fullbudget" value="0">
+                            <input type="hidden" name="category[]" value="{{ $category->id }}">
+                            <input class="budget-slider" type="text" name="budget[]" data-slider-min="0" data-slider-step="1" data-slider-value="0" data-value="{{ $budget->amount }}"/>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                @endforeach
+                @else
+                <div class="distribute-input">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                            It's empty
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+            </div>
+            </div>
+        </div>
+        <div class="adjust-actions text-center">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><span><i class="mdi mdi-close-circle-outline"></i></span> Cancel</button>
+            <button class="btn btn-primary" type="submit"><span><i class="mdi mdi-content-save"></i></span> Save Changes</button>
+        </div>
+    </div>
+</div>
+</div>
+</form>

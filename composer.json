@@ -1,0 +1,32 @@
+{
+    "name":"simcify",
+    "description":"A simple php framework from Simcy Creative",
+    "keywords": [],
+    "license": "MIT",
+    "type":"project",
+    "autoload":{
+        "psr-4":{
+            "Simcify\\": "src/"
+        },
+        "files": [
+            "src/helpers.php",
+            "vendor/pecee/simple-router/helpers.php"
+        ]
+    },
+    "require": {
+        "php": ">=5.5",
+        "ext-mbstring": "*",
+        "vlucas/phpdotenv": "^2.5",
+        "phpmailer/phpmailer": "^6.0",
+        "gilbitron/easycsrf": "^1.0",
+        "php-di/php-di": "^5.4",
+        "suin/php-image-resizer": ">=1.0.0",
+        "gumlet/php-image-resize": "1.9.*",
+        "pecee/simple-router": "3.7.0.0",
+        "twilio/sdk": "*",
+        "africastalking/africastalking": "*",
+        "oohology/dotenvwriter": "*",
+        "paragonie/random_compat": "<9.99",
+        "gerardojbaez/money": "0.*"
+    }
+}

@@ -1,0 +1,79 @@
+<div class="modal-content">
+   <div class="modal-header">
+      <h4 class="modal-title">{{__('expenses.expense-form.update-title')}}</h4>
+   </div>
+      <form class="simcy-form" action="{{ url('Expenses@update') }}" data-parsley-validate method="POST" loader="true">
+   <div class="modal-body">
+         <div class="form-group">
+            <div class="row">
+               <div class="col-md-12">
+                  <label>{{__('expenses.expense-form.label.title')}}</label>
+                  <input type="text" class="form-control" name="title" value="{{$expense->title}}" placeholder="{{__('expenses.expense-form.placeholder.title')}}" required>
+                  <input type="hidden" name="csrf-token" value="{{csrf_token()}}" />
+                  <input type="hidden" name="expenseid" value="{{$expense->id}}" />
+               </div>
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="row">
+               <div class="col-md-12">
+                  <label>{{__('expenses.expense-form.label.amount')}}</label>
+                  <span class="input-prefix">{{ currency() }}</span>
+                  <input type="number" class="form-control prefix" value="{{$expense->amount}}" name="amount" placeholder="{{__('expenses.expense-form.placeholder.amount')}}">
+               </div>
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="row">
+               <div class="col-md-12">
+                  <label>{{__('expenses.expense-form.label.account')}}</label>
+                  <select class="form-control select2" name="account">
+                     <option value="0" @if($expense->account == '0') selected @endif>
+                        {{__('expenses.expense-form.account.other')}}</option>
+                    @if(!empty($accounts))
+                    @foreach($accounts as $account)
+                     <option value="{{ $account->id }}" @if($expense->account == $account->id) selected @endif>
+                        {{ $account->name }}</option>
+                    @endforeach
+                    @endif
+                  </select>
+               </div>
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="row">
+               <div class="col-md-12">
+                   <label>{{__('expenses.expense-form.label.category')}}</label>
+                   <select class="form-control select2" name="category">
+                       @if(!empty($categories))
+                           @foreach($categories as $category)
+                               <option value="{{ $category->id }}" @if($expense->category == $category->id) selected @endif>
+                                  {{ $category->name }} </option>
+                           @endforeach
+                       @endif
+                       <option value="00" @if($expense->category == '0') selected @endif>
+                        {{__('expenses.expense-form.category.other')}} </option>
+                  </select>
+               </div>
+            </div>
+         </div>
+         <div class="form-group">
+            <div class="row">
+               <div class="col-md-12">
+                  <label>{{__('expenses.expense-form.label.date')}}</label>
+                  <input type="text" class="form-control datepicker-dynamic" value="{{date('m/d/Y', strtotime($expense->expense_date))}}" name="expense_date" placeholder="Date">
+               </div>
+            </div>
+         </div>
+   </div>
+   <div class="modal-footer">
+   <button type="button" class="btn btn-default" data-dismiss="modal">{{__('expenses.button.close')}}</button>
+   <button type="submit" class="btn btn-primary">{{__('expenses.button.update-expense')}}</button>
+   </div>
+   </form>
+</div>
+<script type="text/javascript">
+   $('.datepicker-dynamic').datepicker({
+          autoclose: true
+      });
+</script>

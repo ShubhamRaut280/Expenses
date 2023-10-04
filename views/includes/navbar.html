@@ -1,0 +1,56 @@
+<header>
+    <!-- Humbager -->
+    <div class="humbager">
+        <i class="mdi mdi-menu"></i>
+    </div>
+    <!-- logo -->
+    <div class="branding">
+        <a href="{{ url('') }}">
+            <img src="{{ asset('uploads/app/'.env('APP_LOGO')) }}" class="img-responsive">
+        </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+        <ul class="nav navbar-nav">
+          <li><a href="{{ url('Overview@get') }}">{{__('pages.sections.overview')}}</a></li>
+          <li><a href="{{ url('Expenses@get') }}">{{__('pages.sections.expenses')}}</a></li>
+          <li><a href="{{ url('Income@get') }}">{{__('pages.sections.income')}}</a></li>
+          <li><a href="{{ url('Budget@get') }}">{{__('pages.sections.budget')}}</a></li>
+          <li class="close-menu"><a href=""><i class="mdi mdi-close-circle-outline"></i> {{__('pages.options.close')}}</a></li>
+        </ul>
+    </nav>
+
+    <!-- Right content -->
+    <div class="header-right">
+        <div class="dropdown hidden-sm hidden-xs">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span><i class="mdi mdi-plus-circle-outline"></i></span> {{__('pages.options.new-record')}}</button>
+          <ul class="dropdown-menu">
+              <li role="presentation"><a role="menuitem" data-toggle="modal" data-target="#addExpense"> <i class="mdi mdi-chevron-right"></i> {{__('pages.options.expense')}}</a></li>
+              <li role="presentation"><a role="menuitem" data-toggle="modal" data-target="#addIncome"> <i class="mdi mdi-chevron-right"></i> {{__('pages.options.income')}}</a></li>
+          </ul>
+        </div>
+        <div class="dropdown">
+            <span class="dropdown-toggle" data-toggle="dropdown">
+                <span class="avatar">
+                    @if(empty(user()->avatar))
+                     <img src="{{ asset('assets/images/avatar.png') }}" class="img-circle">
+                    @else 
+                     <img src="{{ asset('uploads/avatar/'.$user->avatar) }}" class="img-circle">
+                    @endif
+                </span>
+                <span class="profile-name"> 
+                    <span class="hidden-xs">{{ $user->fname}} {{ $user->lname}}</span> 
+                    <i class="mdi mdi-menu-down-outline"></i> 
+                </span>
+            </span>
+            <ul class="dropdown-menu profile-menu" role="menu" aria-labelledby="menu1">
+              @if($user->role == 'admin')
+              <li role="presentation"><a role="menuitem" href="{{ url('Users@get') }}"> <i class="mdi mdi-account-multiple"></i> {{__('pages.profile-menu.users')}}</a></li>
+              @endif
+              <li role="presentation"><a role="menuitem" href="{{ url('Settings@get') }}"> <i class="mdi mdi-settings"></i> {{__('pages.profile-menu.settings')}}</a></li>
+              <li role="presentation"><a role="menuitem" href="{{ url('Auth@signout') }}"> <i class="mdi mdi-logout"></i> {{__('pages.profile-menu.logout')}}</a></li>
+            </ul>
+          </div>
+    </div>
+</header>

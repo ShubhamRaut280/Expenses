@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Income and Expense tracker for business and personal use.">
+    <meta name="author" content="Simcy Creative">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title>Hellaplus | Income and Expense tracker for business and personal use.</title>
+    <!-- Material design icons -->
+    <link href="{{ asset('assets/fonts/mdi/css/materialdesignicons.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset('assets/libs/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/simcify.min.css') }}" rel="stylesheet">
+    <!-- Signer CSS -->
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="auth-page">
+        <div class="auth-card card">
+            <div class="auth-logo">
+                <img src="{{asset('assets/images/logo.png')}}" class="img-responsive">
+            </div>
+            <div class="login">
+                <div class="auth-heading mt-15">
+                    <h3>Welcome to Hellaplus. Set Your Password</h3>
+                </div>
+                <div class="auth-form">
+                    <form class="c-card__body simcy-form" action="{{url('Auth@accountsetup')}}" method="POST">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>New Password</label>
+                                    <input type="password" class="form-control" name="password" placeholder="Password" required="">
+                                    <input type="hidden" name="csrf-token" value="{{csrf_token()}}">
+                                    <input type="hidden" value="{{$email}}" name="email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Confirm Password</label>
+                                    <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">Activate Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+    </div>
+    <p class="copyright text-thin text-muted"> &copy; 2019 Hellaplus Inc <span>•</span> All Rights Reserved.</p>
+</div>
+
+    <!-- scripts -->
+    <script src="{{asset('assets/js/jquery-3.2.1.min.js')}}"></script>
+    <script src="{{asset('assets/libs/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js//jquery.slimscroll.min.js')}}"></script>
+    <script src="{{asset('assets/js/simcify.min.js')}}"></script>
+    <!-- custom scripts -->
+    <script src="{{asset('assets/js/app.js')}}"></script>
+</body>
+</html>

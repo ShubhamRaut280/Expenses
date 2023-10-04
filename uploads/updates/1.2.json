@@ -1,0 +1,7 @@
+ALTER TABLE `accounts` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE `categories` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE `currencies` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE `expenses` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE `income` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE `timezones` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER TABLE `users` CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci;

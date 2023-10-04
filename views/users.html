@@ -1,0 +1,209 @@
+@include('includes/header')
+<body>
+@include('includes/navbar')
+<!-- Main content -->
+<div class="container">
+    <div class="page-heading">
+            <button class="btn btn-primary pull-right ml-5" type="button" data-toggle="modal" data-target="#create"><span><i class="mdi mdi-plus-circle-outline"></i></span> {{__('settings.button.add-user')}} </button>
+        <div class="heading-content">
+            <div class="user-image">
+                @if(empty($user->avatar))
+                <img src="{{ asset('assets/images/avatar.png') }}" class="img-circle img-responsive">
+                @else
+                <img src="{{ asset('uploads/avatar/'.$user->avatar) }}" class="img-circle img-responsive">
+                @endif
+            </div>
+            <div class="heading-title">
+                <h2>{{__('settings.heading.welcome')}}, {{$user->fname}} {{$user->lname}}</h2>
+                <p>{{__('settings.heading.users-intro')}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h4>{{__('settings.users-table.title')}}</h4>
+              </div>
+              <div class="card-body">
+                  <div class="table-responsive longer">
+                      <table class="table display" id="datatable">
+                          <thead>
+                              <tr>
+                                  <th>{{__('settings.users-table.number')}}</th>
+                                  <th class="text-center">{{__('settings.users-table.image')}}</th>
+                                  <th>{{__('settings.users-table.name')}}</th>
+                                  <th>{{__('settings.users-table.contact')}}</th>
+                                  <th>{{__('settings.users-table.joined-on')}}</th>
+                                  <th>{{__('settings.users-table.status')}}</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            @if(count($users) > 0)
+                            @foreach($users as $index => $user)
+                              <tr>
+                                <td><label class="badge">{{ $index + 1 }}</label></td>
+                                  <td class="text-center">
+                                    @if(empty($user->avatar))
+                                    <img src="{{ asset('assets/images/avatar.png') }}" class="img-circle img-responsive table-avatar">
+                                    @else
+                                    <img src="{{ asset('uploads/avatar/'.$user->avatar) }}" class="img-circle img-responsive table-avatar">
+                                    @endif
+                                  </td>
+                                  <td><strong>{{$user->fname}} {{$user->lname}}</strong><br><!--<span>User #{{$user->id}}--></span></td>
+                                  <td><span>{{$user->email}}</span><br><span></span><p class="text-primary">{{$user->phone}}</p></td>
+                                  <td><strong>{{date('M d, Y', strtotime($user->created_at))}}</strong><br><span>{{__('settings.users-table.date-joined')}}</span></td>
+                                  <td>
+                                    @if($user->status == 'Active')
+                                    <strong class="text-primary"><i class="mdi mdi-checkbox-blank-circle"></i> {{__('settings.user-form.status.active')}}</strong></td>
+                                    @elseif($user->status == 'Inactive')
+                                    <strong class="text-danger"><i class="mdi mdi-checkbox-blank-circle"></i> {{__('settings.user-form.status.inactive')}}</strong></td>
+                                    @endif
+                                  <td>
+                                      <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{__('settings.users-table.actions')}} <span class="caret"></span> </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="c-dropdown__item dropdown-item fetch-display-click" data="userid:{{ $user->id }}|csrf-token:{{csrf_token()}}" url="{{ url('Users@updateview') }}" holder=".update-holder" modal="#update" href=""><i class="mdi mdi-pencil"></i> {{__('settings.users-table.edit')}}</a></li>
+                                            <li><a class="send-to-server-click"  data="userid:{{ $user->id }}|csrf-token:{{ csrf_token() }}" url="{{ url('Users@delete') }}" warning-title="{{__('settings.messages.are-you-sure')}}" warning-message="{{__('settings.messages.delete-user')}}" warning-button="{{__('settings.button.continue')}}" loader="true"><i class="mdi mdi-delete"></i> {{__('settings.users-table.delete')}}</a></li>
+                                        </ul>
+                                      </div>
+                                  </td>
+                              </tr>
+                              @endforeach
+                              @else
+                                <tr>
+                                  <td colspan="7" class="text-center"> It's empty here </td>
+                                </tr>
+                              @endif
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+
+  <!-- footer -->
+  @include('includes/footer')
+</div>
+
+
+
+    <!--Record Income-->
+    <div class="modal fade" id="create" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{__('settings.user-form.add-title')}}</h4>
+                </div>
+                <form class="simcy-form" action="{{ url('Users@create') }}" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
+                    
+                    <div class="modal-body">
+                        <p>{{__('settings.user-form.add-intro')}}</p>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 ">
+                                    <label>{{__('auth.auth-form.label.first-name')}}</label>
+                                    <input type="text" class="form-control" name="fname" placeholder="{{__('auth.auth-form.placeholder.first-name')}}" data-parsley-required="true">
+                                    <input type="hidden" name="csrf-token" value="{{csrf_token()}}" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>{{__('auth.auth-form.label.last-name')}}</label>
+                                    <input type="text" class="form-control" name="lname" placeholder="{{__('auth.auth-form.placeholder.last-name')}}" data-parsley-required="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>{{__('auth.auth-form.label.email')}}</label>
+                                    <input type="email" class="form-control" name="email" placeholder="{{__('auth.auth-form.placeholder.email')}}" data-parsley-required="true">
+                                </div>
+                                <div class="col-md-6">
+                                    <label>{{__('settings.user-form.label.phone')}}</label>
+                                    <input type="text" class="form-control" name="phone" placeholder="{{__('settings.user-form.placeholder.phone')}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('settings.user-form.label.address')}}</label>
+                                    <input type="text" class="form-control" name="address" placeholder="{{__('settings.user-form.placeholder.address')}}" data-parsley-required="false">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('settings.user-form.label.picture')}}</label>
+                                    <input type="file" name="avatar" class="croppie" crop-width="200" crop-height="199"  accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{__('settings.button.close')}}</button>
+                        <button type="submit" class="btn btn-primary">{{__('settings.button.create-account')}}</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Update User Modal -->
+    <div class="modal fade" id="update" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{__('settings.user-form.update-title')}}</h4>
+                </div>
+                <form class="update-holder simcy-form"action="{{ url('Users@update') }}" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
+                    <div class="loader-box"><div class="circle-loader"></div></div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <!-- scripts -->
+    <!-- <script src="assets/js/jquery-3.2.1.min.js"></script> -->
+    <script src="{{ url('') }}lang/{{env('APP_LOCALE_DEFAULT')}}/simcify-lang.js"></script> <!-- js language translation -->
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.flash.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
+    <script src="{{asset('assets/libs/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js//jquery.slimscroll.min.js')}}"></script>
+    <script src="{{asset('assets/js/simcify.min.js')}}"></script>
+    <!-- custom scripts -->
+    <script src="{{asset('assets/js/app.js')}}"></script>
+    <script src="{{ url('') }}lang/{{env('APP_LOCALE_DEFAULT')}}/lang.js"></script> <!-- js language translation -->
+    <script>
+        $(document).ready(function() {
+            $('#datatable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5'
+                ],
+                language: {
+                    url: '{{ url('') }}lang/{{env('APP_LOCALE_DEFAULT')}}/table_lang.json'
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

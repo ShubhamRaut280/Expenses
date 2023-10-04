@@ -1,0 +1,550 @@
+/*!
+* Simcify.css
+* Version 1.0 - built Sat, Oct 6th 2018, 01:12 pm
+* https://simcycreative.com
+* Simcy Creative - <hello@simcycreative.com>
+* Private License
+*/
+
+/*
+ * import library css
+ */
+@import '../libs/toastr/toastr.min.css';
+@import '../libs/sweetalert/sweetalert.css';
+@import '../libs/dropify/css/dropify.min.css';
+@import '../libs/switchery/switchery.min.css';
+@import '../libs/datepicker/css/bootstrap-datepicker.min.css';
+@import '../libs/select2/css/select2.min.css';
+@import '../libs/Croppie/croppie.css';
+
+
+/*
+ * Simcyfy Loader
+ */
+.loading-overlay, .croppie-overlay, .click-preview-overlay {
+    height: 100%;
+    background: rgba(298, 294, 290, 0.9);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 99999;
+    color: #fff;
+    text-align: center;
+    font-size: 66px;
+    padding-top: 20%;
+    display: block;
+}
+.loader-demo-box {
+    border: none !important;
+}
+.loader-box {
+    width: 100%;
+    height: 200px;
+    display: flex !important;
+    align-items: center !important;
+}
+.circle-loader {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    position: relative;
+    margin: 0 auto;
+}
+.circle-loader:before {
+    z-index: 100;
+    animation: spin 1s infinite;
+}
+.circle-loader:after, .circle-loader:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    border: 10px solid transparent;
+    border-top-color: #007bff;
+}
+
+.circle-loader:after {
+    border: 10px solid #E3E8E8;
+}
+
+/*croppie*/
+.croppie-overlay {
+  background-color: #fff;
+  padding-top: 0;
+}
+.croppie-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.croppie-overlay-close, .croppie-overlay-save, .click-preview-close {
+    color: #555;
+    font-size: 41px;
+    width: 44px;
+    height: 44px;
+    float: right;
+    position: absolute;
+    top: 15px;
+    right: 36px;
+    cursor: pointer;
+    background: #ff0000;
+    z-index: 99;
+    border-radius: 50%;
+}
+.croppie-overlay-close div, .croppie-overlay-save div, .click-preview-close div {
+    width: 15px;
+    height: 15px;
+    margin: 0 auto;
+    cursor: pointer;
+    background-image: url(../images/close.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 15px;
+}
+.croppie-overlay-save {
+    background: #49CB41;
+    right: 90px;
+}
+.croppie-overlay-save div {
+    background-image: url(../images/tick.png);
+}
+.croppie-container .cr-slider-wrap {
+    display: none;
+}
+.croppie-cabinet {
+    display: block !important;
+    cursor: pointer !important;
+    text-align: center !important;
+    max-width: 100% !important;
+    padding: 5px;
+    border: 1px solid #e6eaee;
+    border-radius: 4px;
+    position: relative;
+}
+.croppie-cabinet .croppie-figure {
+    background-color: #fff;
+    border: 2px dashed rgba(206,208,218,.5);
+    border-radius: 4px;
+    padding: 5px;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.croppie-cabinet input {
+  position: relative;
+  height: 100%;
+  width: auto;
+  opacity: 0;
+  -moz-opacity: 0;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+  margin-top:-30px;
+  display: none;
+}
+.croppie-output {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    padding: 4px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+.croppie-cabinet-overlay {
+    background-color: rgba(0, 0, 0, .5);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    border-radius: 4px;
+}
+.croppie-cabinet:hover .croppie-cabinet-overlay {
+  opacity: 1;
+}
+.croppie-upload-icon {
+    width: 50px;
+    height: 50px;
+    background-image: url(../images/upload.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: 0 auto;
+}
+
+/*lightbox*/
+img.click-preview {
+    cursor: pointer;
+}
+.click-preview-overlay {
+  background-color: rgba(0, 0, 0, .8);
+  left: 0;
+  padding-top: 0;
+}
+.click-preview-box {
+  width: 100%;
+  height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.click-preview-image-holder {
+  padding: 25px;
+}
+.click-preview-box img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+}
+
+
+
+/*
+ * payment form
+ */
+.payment-modal {
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3333;
+    padding-top: 10%;
+    display: block;
+}
+.cancel-payment {
+    width: 44px;
+    height: 44px;
+    font-size: 33px;
+    float: right;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+.payment-modal #amount {
+  font-size: 12px;
+}
+
+.payment-modal #amount strong {
+  font-size: 14px;
+}
+
+.payment-modal #card-back {
+  top: 40px;
+  right: 0;
+  z-index: -2;
+}
+
+.payment-modal #card-btn {
+    background: #498ee4;
+  position: absolute;
+  bottom: -55px;
+  right: 0;
+  width: 150px;
+  height: 42px;
+  font-size: 12px;
+  font-family: lato, 'helvetica-light', 'sans-serif';
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+
+.payment-modal #card-cvc {
+  width: 60px;
+  margin-bottom: 0;
+}
+
+.payment-modal #card-front,
+.payment-modal #card-back {
+  position: absolute;
+  background-color: #498ee4;
+  width: 390px;
+  height: 250px;
+  border-radius: 6px;
+  padding: 20px 30px 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: 300;
+  color: white;
+}
+
+.payment-modal #card-image {
+  float: right;
+  height: 100%;
+}
+
+.payment-modal #card-image i {
+  font-size: 40px;
+}
+
+.payment-modal #card-month {
+  width: 45% !important;
+}
+
+.payment-modal #card-number,
+.payment-modal #card-holder {
+  width: 100%;
+}
+
+.payment-modal #card-stripe {
+  width: 100%;
+  height: 55px;
+  background-color: #3d5266;
+  position: absolute;
+  right: 0;
+}
+
+.payment-modal #card-success {
+  color: #00b349;
+}
+
+.payment-modal #card-token {
+  display: none;
+}
+
+.payment-modal #card-year {
+  width: 45%;
+  float: right;
+}
+
+.payment-modal #cardholder-container {
+  width: 60%;
+  display: inline-block;
+}
+
+.payment-modal #cvc-container {
+  position: absolute;
+  width: 110px;
+  right: -115px;
+  bottom: -10px;
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+.payment-modal #cvc-container label {
+  width: 100%;
+}
+
+.payment-modal #cvc-container p {
+  font-size: 6px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  letter-spacing: .5px;
+}
+
+.payment-modal #form-container {
+  margin: auto;
+  width: 500px;
+  height: 290px;
+  position: relative;
+}
+
+.payment-modal #form-errors {
+  color: #eb0000;
+}
+
+.payment-modal #form-errors,
+.payment-modal #card-success {
+  background-color: white;
+  width: 500px;
+  margin: 0 auto 10px;
+  height: 50px;
+  border-radius: 8px;
+  padding: 0 20px;
+  font-weight: 400;
+  box-sizing: border-box;
+  line-height: 46px;
+  letter-spacing: .5px;
+  text-transform: none;
+}
+
+.payment-modal #form-errors p,
+.payment-modal #card-success p {
+  margin: 0 5px;
+  display: inline-block;
+}
+
+.payment-modal #exp-container {
+  margin-left: 10px;
+  width: 32%;
+  display: inline-block;
+  float: right;
+}
+
+.payment-modal .hidden {
+  display: none;
+}
+
+.payment-modal #image-container {
+  width: 100%;
+  position: relative;
+  height: 55px;
+  margin-bottom: 5px;
+  line-height: 55px;
+}
+
+.payment-modal #image-container img {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.payment-modal input {
+  border: none;
+  outline: none;
+  background-color: #5a9def;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  margin: 0 0 25px;
+  color: white;
+  font-size: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-family: lato, 'helvetica-light', 'sans-serif';
+  letter-spacing: .7px;
+}
+
+.payment-modal input::-webkit-input-placeholder {
+  color: #fff;
+  opacity: 0.7;
+  font-family: lato, 'helvetica-light', 'sans-serif';
+  letter-spacing: 1px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-size: 10px;
+}
+
+.payment-modal input:-moz-placeholder {
+  color: #fff;
+  opacity: 0.7;
+  font-family: lato, 'helvetica-light', 'sans-serif';
+  letter-spacing: 1px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-size: 10px;
+}
+
+.payment-modal input::-moz-placeholder {
+  color: #fff;
+  opacity: 0.7;
+  font-family: lato, 'helvetica-light', 'sans-serif';
+  letter-spacing: 1px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-size: 10px;
+}
+
+.payment-modal input:-ms-input-placeholder {
+  color: #fff;
+  opacity: 0.7;
+  font-family: lato, 'helvetica-light', 'sans-serif'; 
+  letter-spacing: 1px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-size: 10px;
+}
+
+.payment-modal input.invalid {
+  border: solid 2px #eb0000;
+  height: 34px;
+}
+
+.payment-modal label {
+  display: block;
+  margin: 0 auto 7px;
+}
+
+.payment-modal #shadow {
+  position: absolute;
+  right: 0;
+  width: 284px;
+  height: 214px;
+  top: 36px;
+  background-color: #000;
+  z-index: -1;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+}
+body.fit-screen {
+    height: 100%;
+    overflow: hidden;
+}
+
+
+
+/*
+ * select 2
+ */
+ .select2-container {
+    width: 100% !important;
+}
+.select2-container--default .select2-selection--single {
+    border: 1px solid #dfe3e9;
+    height: 34px;
+    outline: 0;
+    padding-top: 2px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 4px;
+    right: 5px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #6d819c transparent transparent transparent;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid #dfe3e9;
+    color: #6d819c;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.select2-dropdown {
+    border: 1px solid #dfe3e9;
+}
+.select2-container .select2-selection--single .select2-selection__rendered {
+    color: #6d819c !important;
+    outline: 0 !important;
+}
+
+/*
+ * animation
+ */
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

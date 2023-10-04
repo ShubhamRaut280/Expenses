@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{__('pages.title-tag')}}">
+    <meta name="author" content="Simcy Creative">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('uploads/app/'.env('APP_ICON')) }}">
+    <title>{{ $title }} | {{ env("APP_NAME") }}</title>
+    <!-- Material design icons -->
+    <link href="{{ asset('assets/fonts/mdi/css/materialdesignicons.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset('assets/libs/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/simcify.min.css') }}" rel="stylesheet">
+    <!-- Signer CSS -->
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="auth-page">
+        <div class="auth-card card">
+            <div class="auth-logo">
+                <img src="{{ asset('uploads/app/'.env('APP_LOGO')) }}" class="img-responsive">
+            </div>
+            <div class="login">
+                <div class="auth-heading mt-15">
+                    <h2>{{__('auth.auth-form.reset-title')}}</h2>
+                </div>
+                <div class="auth-form">
+                    <form class="c-card__body simcy-form"  data-parsley-validate="" action="{{ url('Auth@reset') }}" loader="true" method="POST">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('auth.auth-form.label.new-password')}}</label>
+                                    <input type="password" class="form-control" name="password" data-parsley-required="true" data-parsley-minlength="6" data-parsley-error-message="{{__('auth.messages.too-short')}}" id="new-password" placeholder="{{__('auth.auth-form.placeholder.new-password')}}">
+                                    <input type="hidden" name="csrf-token" value="{{csrf_token()}}">
+                                    <input type="hidden" value="{{$token}}" name="token">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('auth.auth-form.label.confirm-password')}}</label>
+                                    <input type="password" class="form-control" data-parsley-required="true" data-parsley-equalto="#new-password" data-parsley-error-message="{{__('auth.messages.dont-match')}}" placeholder="{{__('auth.auth-form.placeholder.confirm-password')}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary">{{__('auth.button.reset')}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+    </div>
+    <p class="copyright text-thin text-muted"> &copy; {{ date("Y") }} {{ env("APP_NAME") }} <span>•</span> {{__('pages.footer')}}</p>
+</div>
+
+    <!-- scripts -->
+    <script src="{{ url('') }}lang/{{env('APP_LOCALE_DEFAULT')}}/simcify-lang.js"></script> <!-- js language translation -->
+    <script src="{{asset('assets/js/jquery-3.2.1.min.js')}}"></script>
+    <script src="{{asset('assets/libs/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('assets/js//jquery.slimscroll.min.js')}}"></script>
+    <script src="{{asset('assets/js/simcify.min.js')}}"></script>
+    <!-- custom scripts -->
+    <script src="{{asset('assets/js/app.js')}}"></script>
+    <script src="{{ url('') }}lang/{{env('APP_LOCALE_DEFAULT')}}/lang.js"></script> <!-- js language translation -->
+</body>
+</html>

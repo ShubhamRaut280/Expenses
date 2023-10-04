@@ -1,0 +1,166 @@
+
+  <footer>
+    <div class="footer-logo">
+      <img src="{{ asset('uploads/app/'.env('APP_LOGO')) }}" class="img-responsive">
+    </div>
+    <p class="text-right pull-right">&copy; {{ date("Y") }} {{ env("APP_NAME") }} <span>•</span> {{__('pages.footer')}}</p>
+  </footer>
+
+
+<!-- add income -->
+    <div class="modal fade" id="addIncome" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{__('income.income-form.add-title')}}</h4>
+                </div>
+                    <div class="modal-body">
+                        <p>{{__('income.income-form.add-intro')}}</p>
+                        <form class="simcy-form" action="{{ url('Income@add') }}" data-parsley-validate="" method="POST" loader="true">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('income.income-form.label.title')}}</label>
+                                    <input type="text" class="form-control" name="title" placeholder="{{__('income.income-form.placeholder.title')}}" required="">
+                                    <input type="hidden" name="csrf-token" value="{{csrf_token()}}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('income.income-form.label.amount')}}</label>
+                                    <span class="input-prefix">{{ currency() }}</span>
+                                    <input type="number" class="form-control prefix"  step="0.01" data-parsley-pattern="^[0-9]*\.[0-9]{2}$" name="amount" min="0.01" placeholder="{{__('income.income-form.placeholder.amount')}}" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('income.income-form.label.account')}}</label>
+                                    <select class="form-control select2" name="account">
+                                        <option value="00">{{__('income.income-form.account.other')}}</option>
+                                      @if(!empty($accounts))
+                                      @foreach($accounts as $account)
+                                        <option value="{{ $account->id }}">{{ $account->name }}</option>
+                                      @endforeach
+                                      @endif
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <label>{{__('income.income-form.label.category')}}</label>
+                                    <select class="form-control select2" name="category">
+                                        @if(!empty($incomecategories))
+                                            @foreach($incomecategories as $incomecategory)
+                                                <option value="{{ $incomecategory->id }}">{{ $incomecategory->name }}</option>
+                                            @endforeach
+                                        @endif
+                                        <option value="00">
+                                            {{__('income.income-form.group.other')}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('income.income-form.label.date')}}</label>
+                                    <input type="text" class="form-control datepicker" name="income_date" placeholder="{{__('income.income-form.placeholder.date')}}" required="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{__('income.button.close')}}</button>
+                        <button type="submit" class="btn btn-primary">{{__('income.button.add-income')}}</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--Record Expense-->
+    <div class="modal fade" id="addExpense" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{__('expenses.expense-form.add-title')}}</h4>
+                </div>
+                <form class="simcy-form" action="{{ url('Expenses@add') }}" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <p>{{__('expenses.expense-form.add-intro')}}</p>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('expenses.expense-form.label.title')}}</label>
+                                    <input type="text" class="form-control" name="title" placeholder="{{__('expenses.expense-form.placeholder.title')}}" required="">
+                                    <input type="hidden" name="csrf-token" value="{{csrf_token()}}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('expenses.expense-form.label.amount')}}</label>
+                                    <span class="input-prefix">{{ currency() }}</span>
+                                    <input type="number" class="form-control prefix"  step="0.01" data-parsley-pattern="^[0-9]*\.[0-9]{2}$" min="0.01" name="amount" placeholder="Amount" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('expenses.expense-form.label.account')}}</label>
+                                    <select class="form-control select2" name="account">
+                                        <option value="00">{{__('expenses.expense-form.account.other')}}</option>
+                                      @if(!empty($accounts))
+                                      @foreach($accounts as $account)
+                                        <option value="{{ $account->id }}">{{ $account->name }}</option>
+                                      @endforeach
+                                      @endif
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12 ">
+                                        <label>{{__('expenses.expense-form.label.category')}}</label>
+                                        <select class="form-control select2" name="category">
+                                            @if(!empty($categories))
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @endforeach
+                                            @endif
+                                            <option value="00">{{__('expenses.expense-form.category.other')}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>{{__('expenses.expense-form.label.date')}}</label>
+                                    <input type="text" class="form-control datepicker" name="expense_date" placeholder="{{__('expenses.expense-form.placeholder.date')}}" required="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{__('expenses.button.close')}}</button>
+                        <button type="submit" class="btn btn-primary">{{__('expenses.button.save-expense')}}</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>

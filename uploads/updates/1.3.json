@@ -1,0 +1,9 @@
+ALTER TABLE `categories` ADD `type` ENUM('Income','Expense') NULL DEFAULT NULL AFTER `name`;
+UPDATE `categories` SET `type` = 'Expense';
+ALTER TABLE `income` ADD `category` int(11) DEFAULT 0 AFTER `income_group`;
+ALTER TABLE `income` ADD CONSTRAINT `income_ibfk_3` FOREIGN KEY (`category`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+INSERT INTO `categories` (`name`,`type`,`user`) SELECT 'Salary', 'Income', ID FROM `users`;
+INSERT INTO `categories` (`name`,`type`,`user`) SELECT 'Donations', 'Income', ID FROM `users`;
+INSERT INTO `categories` (`name`,`type`,`user`) SELECT 'Investments', 'Income', ID FROM `users`;
+UPDATE `income` SET `income`.`category` = (SELECT `id` FROM `categories` WHERE `categories`.`name` = `income`.`income_group` and `categories`.`user` = `income`.`user` and `type` = 'Income');
+UPDATE `income` SET `category` = 0 WHERE `income_group` = 'other';
